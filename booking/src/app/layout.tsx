@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import UiLibraryProvider from "./providers/UILibraryProvider";
 import { ClerkProvider } from '@clerk/nextjs'
+import LayoutProvider from "@/providers/LayoutProvider";
 
 
 export const metadata: Metadata = {
@@ -17,12 +18,14 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-      <body> 
-        <UiLibraryProvider>
-        {children}  
-        </UiLibraryProvider>  
-      </body>
-    </html>
+        <body>
+          <UiLibraryProvider>
+            <LayoutProvider>
+              {children}
+            </LayoutProvider>
+          </UiLibraryProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

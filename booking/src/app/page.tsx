@@ -11,8 +11,8 @@ await handlerNewUserRegistration();
 const mongoUserId = await getMongoUserLoggedInUser();
 console.log("mongo user id is: ", mongoUserId);
   return (
-    <div>
-      <UserButton afterSignOutUrl="/"/>
+    <div className="">
+      <h1>HomePage</h1>
     </div>
     
   );
