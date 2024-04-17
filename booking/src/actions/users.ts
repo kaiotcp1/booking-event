@@ -1,5 +1,5 @@
-import { connectDB } from "@/app/config/dbConfig";
-import UserModel from "@/app/models/usermodel";
+import { connectDB } from "@/config/dbConfig";
+import UserModel from "@/models/usermodel";
 import { currentUser } from "@clerk/nextjs";
 
 export const handlerNewUserRegistration = async () => {

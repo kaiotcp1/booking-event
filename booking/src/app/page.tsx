@@ -1,6 +1,6 @@
 import react from "react";
 import { UserButton, auth } from "@clerk/nextjs";
-import { connectDB } from "./config/dbConfig";
+import { connectDB } from "../config/dbConfig";
 import { getMongoUserLoggedInUser, handlerNewUserRegistration } from "@/actions/users";
 connectDB();
 

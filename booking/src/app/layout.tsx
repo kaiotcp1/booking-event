@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import UiLibraryProvider from "./providers/UILibraryProvider";
+import 'remixicon/fonts/remixicon.css'
+import UiLibraryProvider from "../providers/UILibraryProvider";
 import { ClerkProvider } from '@clerk/nextjs'
 import LayoutProvider from "@/providers/LayoutProvider";
 

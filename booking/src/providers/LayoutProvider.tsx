@@ -33,13 +33,13 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     ];
 
     const menusForUser = [{
-            title: 'Home',
-            path: '/'
-        },
-        {
-            title: 'Bookings',
-            path: '/users/bookings'
-        }
+        title: 'Home',
+        path: '/'
+    },
+    {
+        title: 'Bookings',
+        path: '/users/bookings'
+    }
     ];
 
 
@@ -72,7 +72,8 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className='bg-gray-800 h-screen'>
             {isPrivateRoute && <div className='bg-gray-700 flex justify-between items-center p-2 shadow-md'>
-                <h1 className='text-white font-semi bolb text-xl'>Event Booking</h1>
+                <h1 className='text-white font-semi bolb text-xl cursor-pointer'
+                    onClick={() => router.push('/')}>Event Booking</h1>
 
                 <div className='flex px-3 gap-5 items-center'>
                     <Dropdown size='sm'>

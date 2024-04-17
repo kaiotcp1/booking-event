@@ -1,5 +1,5 @@
-import { connectDB } from "@/app/config/dbConfig";
-import UserModel from "@/app/models/usermodel";
+import { connectDB } from "@/config/dbConfig";
+import UserModel from "@/models/usermodel";
 import { auth } from "@clerk/nextjs";
 import { connect } from "http2";
 import { NextResponse, NextRequest } from "next/server";
