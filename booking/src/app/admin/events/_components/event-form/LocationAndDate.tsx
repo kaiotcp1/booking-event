@@ -1,6 +1,7 @@
 import React from 'react'
+import { EventFormStepProps } from './General'
 
-const LocationAndDate = () => {
+const LocationAndDate = ({} : EventFormStepProps) => {
   return (
     <div>LocationAndDate</div>
   )

@@ -26,6 +26,9 @@ const Steps = ({ stepNames, stepsContent, activeStep }: StepsProps) => {
                     );
                 })}
             </div>
+            <div className="mt-5">
+                {stepsContent[activeStep]}
+            </div>
         </div>
     );
 }
