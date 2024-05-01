@@ -18,17 +18,14 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
     return {
       labelPlacement: 'outside' as 'outside',
       value: event?.[name],
-      onChange: (e: any) => {
-        setEvent({ ...event, [name]: e.target.value });
-        isFormValid();
-      },
-      isRequired: isFormValid(),
+      onChange: (e: any) => setEvent({ ...event, [name]: e.target.value }),
+      isRequired: (!event || !event[name] || !event?.orgamizer || !event?.description) ? true : false,
     };
   };
 
   const teste = useEffect(() => {
     console.log(event);
-    console.log(isFormValid());
+
 
   }, [event]);
 
@@ -57,18 +54,6 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
     setEvent({ ...event, guests: newGuests });
   };
 
-  const isFormValid = () => {
-    if (!event?.name || event.name.length < 4 ||
-      !event?.organizer || event.organizer.length < 2 ||
-      !event?.description || event.description.length < 10) {
-      return true
-    } else {
-      return false;
-    }
-  };
-
-
-
   return (
     <div className='flex flex-col gap-5'>
       <Input label='Event name' placeholder='Enter event name'
@@ -96,7 +81,7 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
       </div>
       <div className="flex flex-wrap gap-5">
         {event?.guests?.map((guest: string, index: number) => (
-          <Chip
+          <Chip key={index}
             onClose={() => onGuestRemove(index)}
             className='text-black'>{guest}</Chip>
         ))}
@@ -104,7 +89,7 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
       <div className="flex justify-center gap-5">
         <Button className='bg-gray-200 text-black' onClick={() => { }}>Cancel</Button>
         <Button className='bg-gray-700 text-white' onClick={() => setActiveStep(activeStep + 1)}
-          isDisabled={isFormValid()}>Next</Button>
+          isDisabled={!event?.name || !event?.organizer || !event?.description}>Next</Button>
       </div>
     </div>
   )

@@ -13,7 +13,7 @@ const Steps = ({ stepNames, stepsContent, activeStep }: StepsProps) => {
                 {stepNames.map((stepName, index) => {
                     const isActiveStep = index === activeStep;
                     return (
-                        <div className='flex flex-col gap-5 items-center p-10'>
+                        <div className='flex flex-col gap-5 items-center p-10' key={index}>
                             <div className="flex">
                                 <div className={`shadow-md h-5 w-5 rounded-full flex justify-center items-center
                             ${activeStep >= index ? "bg-slate-500 text-white" : "bg-gray-300 text-gray-100"}
