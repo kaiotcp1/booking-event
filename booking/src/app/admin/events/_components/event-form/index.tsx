@@ -8,6 +8,7 @@ import Tickets from './Tickets'
 
 const EventForm = () => {
     const [activeStep = 0, setActiveStep] = React.useState<number>(0);
+    const [newlySelectedImages = [], setNewlySelectedImages] = React.useState<any[]>([]);
     const [event, setEvent] = React.useState<any>(null);
 
     const onSubmit = (e: any) => {
@@ -19,10 +20,13 @@ const EventForm = () => {
         setEvent,
         activeStep,
         setActiveStep,
+        newlySelectedImages,
+        setNewlySelectedImages
     }
 
     return (
         <div className=''>
+            <h1>KAIO</h1>
             <form onSubmit={onSubmit}>
                 <Steps
                     stepNames={['General', 'Location & Date', 'Media', 'Tickets']}
