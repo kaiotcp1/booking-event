@@ -7,11 +7,6 @@ const Media = ({ newlySelectedImages, setNewlySelectedImages, event, activeStep,
 
   const uploadFilesRef = React.useRef<HTMLInputElement>(null)
 
-
-  const teste3 = useEffect(() => {
-    console.log('uploadedFilesRef: ' + uploadFilesRef.current?.files);
-
-  }, [newlySelectedImages])
   const onFileSelect = (e: any) => {
     try {
       const files = e.target.files;

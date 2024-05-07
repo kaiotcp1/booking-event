@@ -56,8 +56,8 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
           {event.ticketTypes.map((ticketType: any, index: number) => (
             <div key={index} className='grid grid-cols-4 pt-2 gap-5'>
               <Input placeholder='Name' value={ticketType.name} onChange={(e) => onTicketPropertyChange({ index, property: 'name', value: e.target.value })} />
-              <Input placeholder='Price' value={ticketType.price} onChange={(e) => onTicketPropertyChange({ index, property: 'price', value: e.target.value })} />
-              <Input placeholder='Limit' value={ticketType.limit} onChange={(e) => onTicketPropertyChange({ index, property: 'limit', value: e.target.value })} />
+              <Input placeholder='Price' value={ticketType.price} type='number' onChange={(e) => onTicketPropertyChange({ index, property: 'price', value: Number(e.target.value) })} />
+              <Input placeholder='Limit' value={ticketType.limit} type='number' onChange={(e) => onTicketPropertyChange({ index, property: 'limit', value: Number(e.target.value) })} />
               <Button isIconOnly onClick={() => onTicketTypeDelete(index)}>
                 <i className="ri-delete-bin-2-line"></i>
               </Button>
@@ -69,10 +69,9 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
 
       <Button className='mt-10' onClick={onAddTicketType}>Add Ticket Type</Button>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-5">
         <Button className='bg-gray-200 text-black' onClick={() => setActiveStep(activeStep - 1)}>back</Button>
-        <Button className='bg-gray-700 text-white' onClick={() => setActiveStep(activeStep + 1)}
-          isDisabled={!event?.name || !event?.organizer || !event?.description}>Next</Button>
+        <Button className='bg-gray-700 text-white' type='submit' isDisabled={event?.ticketTypes?.length === 0}>Submit</Button>
       </div>
     </div>
   )
