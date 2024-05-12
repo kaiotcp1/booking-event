@@ -4,7 +4,7 @@ import { Button, Input } from '@nextui-org/react'
 import toast from 'react-hot-toast';
 import { limit } from 'firebase/firestore';
 
-const Tickets = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepProps) => {
+const Tickets = ({ event, activeStep, setActiveStep, setEvent, loading }: EventFormStepProps) => {
 
   const onAddTicketType = () => {
     try {
@@ -49,7 +49,7 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
       {event.ticketTypes && event.ticketTypes.length > 0 && (
         <div>
           <div className='grid grid-cols-4 bg-gray-300 shadow-lg font-semibold rounded justify-between p-2 gap-5'>
-            {['Name', 'Price', 'Limit', ''].map((item, index) => (
+            {['Name', 'Price', 'Limit'].map((item: any, index: number) => (
               <h1 key={index}>{item}</h1>
             ))}
           </div>
@@ -63,7 +63,6 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
               </Button>
             </div>
           ))}
-
         </div>
       )}
 
@@ -71,7 +70,9 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
 
       <div className="flex justify-center gap-5">
         <Button className='bg-gray-200 text-black' onClick={() => setActiveStep(activeStep - 1)}>back</Button>
-        <Button className='bg-gray-700 text-white' type='submit' isDisabled={event?.ticketTypes?.length === 0}>Submit</Button>
+        <Button className='bg-gray-700 text-white' type='submit'
+         isDisabled={event?.ticketTypes?.length === 0}
+         isLoading={loading}>Submit</Button>
       </div>
     </div>
   )

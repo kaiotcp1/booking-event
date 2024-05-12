@@ -4,12 +4,13 @@ import { Chip } from "@nextui-org/react";
 import { trusted } from 'mongoose';
 
 export interface EventFormStepProps {
-  event: any,
-  setEvent: React.Dispatch<React.SetStateAction<any>>,
-  activeStep: number,
+  event: any;
+  setEvent: React.Dispatch<React.SetStateAction<any>>;
+  activeStep: number;
   setActiveStep: React.Dispatch<React.SetStateAction<any>>;
   newlySelectedImages: any[];
-  setNewlySelectedImages: React.Dispatch<React.SetStateAction<any[]>>
+  setNewlySelectedImages: React.Dispatch<React.SetStateAction<any[]>>;
+  loading: boolean;
 };
 
 const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepProps) => {
