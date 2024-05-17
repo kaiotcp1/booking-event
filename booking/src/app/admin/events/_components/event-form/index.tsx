@@ -1,6 +1,6 @@
 'use client'
 import Steps from '@/components/Steps'
-import React from 'react'
+import React, { useEffect } from 'react'
 import General from './General'
 import LocationAndDate from './LocationAndDate'
 import Media from './Media'
@@ -10,7 +10,12 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 
-const EventForm = () => {
+interface Props {
+    initialData?: any;
+    type?: 'edit' | 'create';
+};
+
+const EventForm = ({ initialData, type = 'create' }: Props) => {
     const [activeStep = 0, setActiveStep] = React.useState<number>(0);
     const [newlySelectedImages = [], setNewlySelectedImages] = React.useState<any[]>([]);
     const [event, setEvent] = React.useState<any>(null);
@@ -28,7 +33,7 @@ const EventForm = () => {
             toast.success('Event created successfully!');
             router.refresh();
             router.push('/admin/events');
-            console.dir(event, {depth: null});
+            console.dir(event, { depth: null });
         } catch (error: any) {
             toast.error(error.message)
         } finally {
@@ -45,6 +50,12 @@ const EventForm = () => {
         setNewlySelectedImages,
         loading
     }
+
+    useEffect(() => {
+        if (initialData) {
+            setEvent(initialData);
+        };
+    }, [initialData]);
 
     return (
         <div className=''>

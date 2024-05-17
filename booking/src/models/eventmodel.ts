@@ -24,11 +24,11 @@ const eventSchema = new mongoose.Schema({
 
     location: {
         type: String,
-        required: true
+        required: true,
     },
 
     date: {
-        type: Date,
+        type: String,
         required: true,
     },
 
