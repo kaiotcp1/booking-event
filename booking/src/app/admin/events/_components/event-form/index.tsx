@@ -16,6 +16,7 @@ interface Props {
 };
 
 const EventForm = ({ initialData, type = 'create' }: Props) => {
+    const [alreadyUploadedImages, setAlreadyUploadedImages] = React.useState<string[]>([]);
     const [activeStep = 0, setActiveStep] = React.useState<number>(0);
     const [newlySelectedImages = [], setNewlySelectedImages] = React.useState<any[]>([]);
     const [event, setEvent] = React.useState<any>(null);
@@ -29,11 +30,20 @@ const EventForm = ({ initialData, type = 'create' }: Props) => {
             event.images = await uploadImagesToFirebaseAndGetUrls(
                 newlySelectedImages.map((image: any) => image.file)
             );
-            await axios.post('/api/admin/events', event);
-            toast.success('Event created successfully!');
-            router.refresh();
-            router.push('/admin/events');
-            console.dir(event, { depth: null });
+            if (type === 'create') {
+                await axios.post('/api/admin/events', event);
+                toast.success('Event created successfully!');
+                router.refresh();
+                router.push('/admin/events');
+                //console.dir(event, { depth: null });
+            } else {
+                const newlyUploadedImageUrls = await uploadImagesToFirebaseAndGetUrls(
+                    newlySelectedImages.map((image: any) => image.file)
+                );
+                event.images = [...alreadyUploadedImages, ...newlyUploadedImageUrls];
+                await axios.put(`/api/admin/events/${event._id}`, event);
+                toast.success('Event updated successfully!');
+            }
         } catch (error: any) {
             toast.error(error.message)
         } finally {
@@ -48,18 +58,20 @@ const EventForm = ({ initialData, type = 'create' }: Props) => {
         setActiveStep,
         newlySelectedImages,
         setNewlySelectedImages,
-        loading
-    }
+        alreadyUploadedImages,
+        setAlreadyUploadedImages,
+        loading,
+    };
 
     useEffect(() => {
         if (initialData) {
             setEvent(initialData);
+            setAlreadyUploadedImages(initialData.images);
         };
     }, [initialData]);
 
     return (
         <div className=''>
-            <h1>KAIO</h1>
             <form onSubmit={onSubmit}>
                 <Steps
                     stepNames={['General', 'Location & Date', 'Media', 'Tickets']}

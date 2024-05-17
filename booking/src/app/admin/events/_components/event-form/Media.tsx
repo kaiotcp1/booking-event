@@ -3,7 +3,13 @@ import { EventFormStepProps } from './General'
 import { Button } from '@nextui-org/react'
 import toast from 'react-hot-toast'
 
-const Media = ({ newlySelectedImages, setNewlySelectedImages, event, activeStep, setActiveStep }: EventFormStepProps) => {
+const Media = ({ newlySelectedImages,
+  setNewlySelectedImages,
+  event,
+  activeStep,
+  setActiveStep,
+  alreadyUploadedImages,
+  setAlreadyUploadedImages }: EventFormStepProps) => {
 
   const uploadFilesRef = React.useRef<HTMLInputElement>(null)
 
@@ -23,11 +29,17 @@ const Media = ({ newlySelectedImages, setNewlySelectedImages, event, activeStep,
     }
   };
 
-  const onRemove = (index: number) => {
+  const onNewUploadedRemove = (index: number) => {
     const tempImages = [...newlySelectedImages];
     tempImages.splice(index, 1);
     setNewlySelectedImages(tempImages);
   }
+
+  const onAlreadyUploadedRemove = (index: number) => {
+    const tempImages: string[] = [...alreadyUploadedImages];
+    tempImages.splice(index, 1);
+    setAlreadyUploadedImages(tempImages);
+  };
 
   return (
     <div className='flex flex-col gap-5'>
@@ -38,12 +50,21 @@ const Media = ({ newlySelectedImages, setNewlySelectedImages, event, activeStep,
           Upload new image</Button>
       </div>
       <div className="flex gap-5">
+      {alreadyUploadedImages?.map((image: any, index: number) => (
+          <div key={index} className="flex flex-col gap-5 border">
+            <img src={image} alt='newly selected'
+              className='w-20 h-20 object-cover m-5 shadow-2xl' />
+            <h1 className='text-center cursor-pointer text-sm underline'
+              onClick={() => onAlreadyUploadedRemove(index)}>Remove</h1>
+          </div>
+        ))}
+
         {newlySelectedImages?.map((image: any, index: number) => (
           <div key={index} className="flex flex-col gap-5 border">
             <img src={image.url} alt='newly selected'
               className='w-20 h-20 object-cover m-5 shadow-2xl' />
             <h1 className='text-center cursor-pointer text-sm underline'
-              onClick={() => onRemove(index)}>Remove</h1>
+              onClick={() => onNewUploadedRemove(index)}>Remove</h1>
           </div>
         ))}
       </div>
