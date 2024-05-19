@@ -3,11 +3,29 @@ import { EventType } from '@/interfaces/events'
 import React from 'react'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const columns = ['Name', 'Organizer', 'Date', 'Time', 'Location', 'Actions'];
 
 const EventsTable = ({ events }: { events: EventType[] }) => {
     const router = useRouter();
+    const [selectedIdToDelete, setSelectedIdToDelete] = React.useState<string>('');
+    const [loading, setLoading] = React.useState<boolean>(false);
+
+    const onDelete = async (id: string) => {
+        try {
+            setLoading(true);
+            await axios.delete(`/api/admin/events/${id}`);
+            toast.success('Event deleted successfully!');
+            router.refresh();
+        } catch (error: any) {
+            toast.error(error.message);
+        } finally {
+            setSelectedIdToDelete('');
+            setLoading(false);
+        }
+    };
 
     return (
         <div className='bg-black'>
@@ -30,7 +48,16 @@ const EventsTable = ({ events }: { events: EventType[] }) => {
                                 <TableCell>{event.location}</TableCell>
                                 <TableCell>
                                     <div className="flex gap-5 justify-center">
-                                        <Button isIconOnly><i className="ri-delete-bin-line text-cyan-700"></i></Button>
+                                        <Button onClick={() => {
+                                            setSelectedIdToDelete(event._id);
+                                            onDelete(event._id);
+                                        }}
+                                            isLoading={loading && selectedIdToDelete === event._id}
+                                            isIconOnly>
+                                            {selectedIdToDelete !== event._id && (
+                                                <i className="ri-delete-bin-line text-cyan-700"></i>
+                                            )}
+                                        </Button>
                                         <Button onClick={() => router.push(`/admin/events/edit-event/${event._id}`)} isIconOnly><i className="ri-edit-line text-cyan-700"></i></Button>
                                     </div>
                                 </TableCell>

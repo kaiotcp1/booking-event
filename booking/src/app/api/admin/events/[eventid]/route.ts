@@ -17,12 +17,12 @@ export async function PUT(request: NextRequest, { params }: { params: { eventid:
     };
 };
 
-export async function DELETE(request: NextRequest, { params }: { params: { eventId: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { eventid: string } }) {
     try {
         const { userId } = auth();
         if (!userId) return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-        await EventModel.findByIdAndDelete(params.eventId);
-        return NextResponse.json({ message: 'Event deleted successfully' }, { status: 201 });
+        await EventModel.findByIdAndDelete(params.eventid);
+        return NextResponse.json({ message: 'Event deleted successfully' }, { status: 200 });
     } catch (error: any) {
         return NextResponse.json({ message: error.message }, { status: 500 });
     };
