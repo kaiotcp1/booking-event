@@ -70,7 +70,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <div className='bg-gray-800 h-screen'>
+        <div className='bg-gray-800 h-max'>
             {isPrivateRoute && <div className='bg-gray-700 flex justify-between items-center p-2 shadow-md'>
                 <h1 className='text-white font-semi bolb text-xl cursor-pointer'
                     onClick={() => router.push('/')}>Event Booking</h1>
