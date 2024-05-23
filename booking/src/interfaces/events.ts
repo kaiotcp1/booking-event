@@ -16,7 +16,6 @@ export interface EventType {
     }[]
 
     images: string[];
-
     createdAt: Date;
     updatedAt: Date;
     user: any;

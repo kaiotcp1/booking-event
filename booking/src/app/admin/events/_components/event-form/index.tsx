@@ -43,6 +43,7 @@ const EventForm = ({ initialData, type = 'create' }: Props) => {
                 event.images = [...alreadyUploadedImages, ...newlyUploadedImageUrls];
                 await axios.put(`/api/admin/events/${event._id}`, event);
                 toast.success('Event updated successfully!');
+                router.refresh();
             }
         } catch (error: any) {
             toast.error(error.message)

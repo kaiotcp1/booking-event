@@ -17,7 +17,7 @@ const EditEventPage = async ({ params }: Props) => {
   console.log(event);
   console.log(eventId)
   return (
-    <div className=' flex-wrap bg-slate-700 shadow-md m-5 pt-1'>
+    <div className='h-screen flex-wrap bg-slate-700 shadow-md m-5 pt-1'>
       <PageTitle title='Edit Event' />
 
       <div className="flex justify-center p-5 mt-5 bg-white">
