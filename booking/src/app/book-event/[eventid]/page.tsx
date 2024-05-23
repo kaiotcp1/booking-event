@@ -3,6 +3,7 @@ import { connectDB } from '@/config/dbConfig';
 import { EventType } from '@/interfaces/events';
 import EventModel from '@/models/eventmodel';
 import React from 'react'
+import TicketSelection from '../_component/ticket-selection';
 
 connectDB();
 
@@ -30,7 +31,7 @@ const BookEventPage = async ({ params }: Props) => {
 
   return (
     <div className='md:mx-7 m-5'>
-      <div className='bg-gray-700 p-5 text-white flex items-center md:items-start flex-col gap-5'>
+      <div className='bg-gray-700 p-5 text-white flex items-center md:items-start flex-col gap-5 shadow-md'>
         <h1 className="text-7xl font-semibold text-white">{event?.name}</h1>
         <div className="flex gap-10 text-sm">
           <h1 className="text-gray-500 ">
@@ -58,7 +59,7 @@ const BookEventPage = async ({ params }: Props) => {
           {event?.description}
         </p>
 
-        <div className="mt-5 bg-gray-700 p-3 grid grid-cols-3 md:grid-cols-5 gap-5">
+        <div className="mt-5 bg-gray-700 p-3 grid grid-cols-3 md:grid-cols-5 gap-5 shadow-lg">
           {getEventProperty('organizer')}
           {getEventProperty('location')}
           {getEventProperty('date')}
@@ -72,6 +73,7 @@ const BookEventPage = async ({ params }: Props) => {
             </h1>
           </div>
         </div>
+        <TicketSelection event={JSON.parse(JSON.stringify(event))}/>
       </div>
     </div>
   )
