@@ -1,7 +1,14 @@
 'use client'
 import { EventType } from '@/interfaces/events'
 import { Button } from '@nextui-org/react';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 import React, { useEffect } from 'react'
+import toast from 'react-hot-toast';
+import PaymentModal from './payment-modal';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('pk_test_51PLSzLRtVzE43XTo3gjdkpgTPPLlz1gshtqtpqH6aP31d3eA0m5VAWCDCuuqMlszeePlIlU5n5L8tcrymzXziCOT00aFcYrYbq');
 
 interface TicketSelectionProps {
     event: EventType;
@@ -11,6 +18,8 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
     const [ticketCount, setTicketCount] = React.useState(1);
     const [selectedTicketType, setSelectedTicketType] = React.useState(event.ticketTypes[0].name);
     const [totalAmount, setTotalAmount] = React.useState(0);
+    const [clientSecret, setClientSecret] = React.useState('');
+    const [showPaymentModal, setShowPaymentModal] = React.useState(false);
 
     useEffect(() => {
         const ticketType = event.ticketTypes.find((ticketType) => ticketType.name === selectedTicketType);
@@ -18,7 +27,24 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
         if (ticketType) {
             setTotalAmount(ticketType.price * ticketCount);
         };
-    }, [ticketCount, selectedTicketType])
+    }, [ticketCount, selectedTicketType]);
+
+    const getClientSecret = async () => {
+        try {
+            const response = await axios.post('/api/stripe/client-secret', {
+                amount: totalAmount * 100,
+            });
+            setClientSecret(response.data.clientSecret);
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    };
+
+    useEffect(() => {
+        if (showPaymentModal) {
+            getClientSecret();
+        }
+    }, [showPaymentModal]);
 
     return (
         <div className='mt-5'>
@@ -56,8 +82,13 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
                     Total Amount : $ {totalAmount}
                 </h1>
 
-                <Button>Book Now</Button>
+                <Button onClick={() => setShowPaymentModal(true)}>Book Now</Button>
             </div>
+            {showPaymentModal && clientSecret && (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <PaymentModal />
+                </Elements>
+            )}
         </div>
     )
 }
