@@ -12,6 +12,7 @@ export async function POST(request: NextResponse) {
             amount: amount,
             currency: 'usd',
             metadata: { integration_check: 'accept_a_payment' },
+            description: 'Ticket Purchase',
         });
         const clientSecret = paymentIntent.client_secret;
         return NextResponse.json({ clientSecret: clientSecret });

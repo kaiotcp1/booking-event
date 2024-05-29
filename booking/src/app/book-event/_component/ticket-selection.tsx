@@ -20,6 +20,7 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
     const [totalAmount, setTotalAmount] = React.useState(0);
     const [clientSecret, setClientSecret] = React.useState('');
     const [showPaymentModal, setShowPaymentModal] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     useEffect(() => {
         const ticketType = event.ticketTypes.find((ticketType) => ticketType.name === selectedTicketType);
@@ -31,12 +32,15 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
 
     const getClientSecret = async () => {
         try {
+            setLoading(true);
             const response = await axios.post('/api/stripe/client-secret', {
                 amount: totalAmount * 100,
             });
             setClientSecret(response.data.clientSecret);
         } catch (error: any) {
             toast.error(error.message)
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -82,13 +86,20 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
                     Total Amount : $ {totalAmount}
                 </h1>
 
-                <Button onClick={() => setShowPaymentModal(true)}>Book Now</Button>
+                <Button onClick={() => setShowPaymentModal(true)}
+                    isLoading={loading}>
+                    Book Now
+                </Button>
             </div>
-            {showPaymentModal && clientSecret && (
-                <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <PaymentModal />
-                </Elements>
-            )}
+            <div className=''>
+                {showPaymentModal && clientSecret && (
+                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                        <PaymentModal
+                            showPaymentModal={showPaymentModal}
+                            setShowPaymentModal={setShowPaymentModal} />
+                    </Elements>
+                )}
+            </div>
         </div>
     )
 }
