@@ -96,7 +96,12 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
                     <Elements stripe={stripePromise} options={{ clientSecret }}>
                         <PaymentModal
                             showPaymentModal={showPaymentModal}
-                            setShowPaymentModal={setShowPaymentModal} />
+                            setShowPaymentModal={setShowPaymentModal} 
+                            event={event}
+                            ticketType={selectedTicketType}
+                            ticketsCount={ticketCount}
+                            totalAmount={totalAmount}
+                            />
                     </Elements>
                 )}
             </div>
