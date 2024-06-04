@@ -8,19 +8,22 @@ export const handlerNewUserRegistration = async () => {
         const loggedUser = await currentUser();
 
         //check if the user is already registered
-        const userExists = await UserModel.findOne({ clerkUserId: loggedUser?.id});
-        if(userExists) return userExists;
+        const userExists = await UserModel.findOne({ clerkUserId: loggedUser?.id });
+        if (userExists) return userExists;
 
         //Create a new user;
         const newUser = new UserModel({
-            userName: loggedUser?.username,
+            userName: loggedUser?.username ||
+                `${loggedUser?.firstName} 
+                ${loggedUser?.lastName} 
+            }`,
             email: loggedUser?.emailAddresses[0].emailAddress,
             clerkUserId: loggedUser?.id,
         });
 
         await newUser.save();
         return newUser;
-    } catch (error:any) {
+    } catch (error: any) {
         throw new Error(error);
     };
 };
@@ -29,12 +32,12 @@ export const getMongoUserLoggedInUser = async () => {
 
     try {
         const loggedInUser = await currentUser();
-        const userInMongoDb= await UserModel.findOne({
+        const userInMongoDb = await UserModel.findOne({
             clerkUserId: loggedInUser?.id,
         });
 
-        if(userInMongoDb) return userInMongoDb._id;
-    } catch (error:any) {
+        if (userInMongoDb) return userInMongoDb._id;
+    } catch (error: any) {
         throw new Error(error);
     }
 

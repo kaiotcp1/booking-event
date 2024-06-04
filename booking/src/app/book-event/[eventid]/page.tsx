@@ -4,6 +4,7 @@ import { EventType } from '@/interfaces/events';
 import EventModel from '@/models/eventmodel';
 import React from 'react'
 import TicketSelection from '../_component/ticket-selection';
+import BookingModel from '@/models/bookingmodel';
 
 connectDB();
 
@@ -15,6 +16,7 @@ interface Props {
 
 const BookEventPage = async ({ params }: Props) => {
   const event = await EventModel.findById(params.eventid);
+  const eventBookings = await BookingModel.find({event: params.eventid});
 
   const getEventProperty = (property: string) => {
     return (
@@ -73,7 +75,8 @@ const BookEventPage = async ({ params }: Props) => {
             </h1>
           </div>
         </div>
-        <TicketSelection event={JSON.parse(JSON.stringify(event))}/>
+        <TicketSelection event={JSON.parse(JSON.stringify(event))}
+          eventBookings={JSON.parse(JSON.stringify(eventBookings))}/>
       </div>
     </div>
   )

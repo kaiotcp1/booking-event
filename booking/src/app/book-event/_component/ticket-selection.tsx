@@ -7,14 +7,16 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast';
 import PaymentModal from './payment-modal';
 import { Elements } from '@stripe/react-stripe-js';
+import { BookingType } from '@/interfaces/bookings';
 
 const stripePromise = loadStripe('pk_test_51PLSzLRtVzE43XTo3gjdkpgTPPLlz1gshtqtpqH6aP31d3eA0m5VAWCDCuuqMlszeePlIlU5n5L8tcrymzXziCOT00aFcYrYbq');
 
 interface TicketSelectionProps {
     event: EventType;
+    eventBookings: BookingType[];
 };
 
-const TicketSelection = ({ event }: TicketSelectionProps) => {
+const TicketSelection = ({ event, eventBookings }: TicketSelectionProps) => {
     const [ticketCount, setTicketCount] = React.useState(1);
     const [selectedTicketType, setSelectedTicketType] = React.useState(event.ticketTypes[0].name);
     const [totalAmount, setTotalAmount] = React.useState(0);
@@ -30,8 +32,32 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
         };
     }, [ticketCount, selectedTicketType]);
 
+
+    const limits: any = {};
+
+    event.ticketTypes.forEach((ticketType) => {
+        let bookedTickets = 0;
+        eventBookings.forEach((booking: BookingType) => {
+            if (booking.ticketType === ticketType.name) {
+                bookedTickets += booking.ticketCount;
+            }
+        });
+
+        limits[ticketType.name] = ticketType.limit - bookedTickets;
+    });
+
     const getClientSecret = async () => {
         try {
+            //Check if the limit is reached
+            if (limits[selectedTicketType] === 0) {
+                toast.error('Ticket limit reached');
+                return;
+            };
+
+            if (limits[selectedTicketType] < ticketCount) {
+                toast.error(`   Only ${limits[selectedTicketType]} tickets left`)
+            };
+
             setLoading(true);
             const response = await axios.post('/api/stripe/client-secret', {
                 amount: totalAmount * 100,
@@ -58,10 +84,10 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
                     {event.ticketTypes.map((ticketType) => (
                         <div key={ticketType.name}
                             onClick={() => setSelectedTicketType(ticketType.name)}
-                            className={`bg-gray-700 p-2 text-center shadow-md hover:bg-gray-600 hover:shadow-2xl duration-300 cursor-pointer
+                            className={`bg-gray-700 p-2 text-lg shadow-md hover:bg-gray-600 hover:shadow-2xl duration-300 cursor-pointer
                         ${selectedTicketType === ticketType.name && ` hover:bg-gray-600 hove border border-gray-300 rounded-sm`}`}>
                             <h1 className="text-gray-400 font-semibold"> {ticketType.name}</h1>
-                            <h1 className='text-gray-500 text-sm'>${ticketType.price}</h1>
+                            <h1 className='flex justify-between text-gray-500 text-sm'>${ticketType.price} <span>{limits[ticketType.name]} Tickets Left</span></h1>
                         </div>
                     ))}
                 </div>
@@ -96,12 +122,12 @@ const TicketSelection = ({ event }: TicketSelectionProps) => {
                     <Elements stripe={stripePromise} options={{ clientSecret }}>
                         <PaymentModal
                             showPaymentModal={showPaymentModal}
-                            setShowPaymentModal={setShowPaymentModal} 
+                            setShowPaymentModal={setShowPaymentModal}
                             event={event}
                             ticketType={selectedTicketType}
                             ticketsCount={ticketCount}
                             totalAmount={totalAmount}
-                            />
+                        />
                     </Elements>
                 )}
             </div>
