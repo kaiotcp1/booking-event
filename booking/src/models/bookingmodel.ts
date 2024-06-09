@@ -1,41 +1,43 @@
 import mongoose from "mongoose";
 
-const bookingSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema(
+  {
     event: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'events'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "events",
     },
-
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
-
     paymentId: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-
     ticketType: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-
-    ticketCount: {
-        type: Number,
-        required: true,
+    ticketsCount: {
+      type: Number,
+      required: true,
     },
-
     totalAmount: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
+    },
+    status : {
+      type: String,
+      required: true,
+      default: "booked"
     }
-},
-{timestamps: true});
+  },
+  { timestamps: true }
+);
 
-if(mongoose.models && mongoose.models.bookings) {
-    delete mongoose.models.bookings;
+if (mongoose.models && mongoose.models.bookings) {
+  delete mongoose.models.bookings;
 }
 
-const BookingModel = mongoose.model('bookings', bookingSchema);
+const BookingModel = mongoose.model("bookings", bookingSchema);
 export default BookingModel;

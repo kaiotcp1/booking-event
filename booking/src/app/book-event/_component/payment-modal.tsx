@@ -47,7 +47,7 @@ const PaymentModal = ({ showPaymentModal, setShowPaymentModal, event, ticketType
         const reqBody = {
           event: event._id,
           ticketType,
-          ticketCount: ticketsCount,
+          ticketsCount,
           totalAmount,
           paymentId: result.paymentIntent?.id,
         };

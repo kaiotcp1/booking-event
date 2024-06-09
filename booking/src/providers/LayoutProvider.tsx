@@ -38,7 +38,7 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     },
     {
         title: 'Bookings',
-        path: '/users/bookings'
+        path: '/bookings'
     }
     ];
 

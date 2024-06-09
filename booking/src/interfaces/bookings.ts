@@ -4,9 +4,11 @@ export interface BookingType {
     _id: any;
     event: EventType;
     user: any;
+    paymentId: string;
     ticketType: string;
-    ticketCount: number;
+    ticketsCount: number;
+    status: string;
     totalAmount: number;
     createdAt: Date;
     updatedAt: Date;
-}
+  }
