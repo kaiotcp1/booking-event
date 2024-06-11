@@ -5,6 +5,7 @@ import BookingModel from '@/models/bookingmodel';
 import { BookingType } from '@/interfaces/bookings';
 import PageTitle from '@/components/PageTitle';
 import dayjs from 'dayjs';
+import CancelBookingBtn from './_components/cancel-booking-button';
 connectDB();
 
 const BookingsPage = async () => {
@@ -29,20 +30,23 @@ const BookingsPage = async () => {
             {serializedBookings.map((booking) => {
                 return (
                     <div key={booking._id} className='bg-gray-700 shadow-md'>
-                        <div className='bg-gray-700 p-3 text-white shadow-md'>
-                            <h1 className="text-2xl font-semibold">
-                                {booking.event.name}
-                            </h1>
-                            <div className="flex gap-10 text-sm">
-                                <h1 className="text-gray-500 ">
-                                    <i className="ri-map-pin-line pr-3 text-white"></i>
-                                    {booking.event?.location}
+                        <div className='flex flex-col md:flex-row md:justify-between md:items-center bg-gray-700 p-3 text-white shadow-md '>
+                            <div className=''>
+                                <h1 className="text-2xl font-semibold">
+                                    {booking.event.name}
                                 </h1>
-                                <h1 className="text-gray-500 ">
-                                    <i className="ri-calendar-line pr-3 text-white"></i>
-                                    {booking.event?.date} at{" "} {booking.event?.time}
-                                </h1>
+                                <div className="flex flex-col md:flex-row md:gap-10 text-sm">
+                                    <h1 className="text-gray-500 ">
+                                        <i className="ri-map-pin-line pr-3 text-white"></i>
+                                        {booking.event?.location}
+                                    </h1>
+                                    <h1 className="text-gray-500 ">
+                                        <i className="ri-calendar-line pr-3 text-white"></i>
+                                        {booking.event?.date} at{" "} {booking.event?.time}
+                                    </h1>
+                                </div>
                             </div>
+                            {booking.status !== 'cancelled' && (<CancelBookingBtn booking={booking} />)}
                         </div>
                         <div className="flex flex-col gap-5 p-3 md:grid md:grid-cols-3 md:gap-5 md:p-5">
                             {getProperty({ key: 'Booking id', value: booking._id })}
@@ -56,10 +60,11 @@ const BookingsPage = async () => {
                                 key: "Booked on",
                                 value: dayjs(booking.createdAt).format("DD/MM/YYYY hh:mm A"),
                             })}
+                            {getProperty({ key: 'Status', value: booking.status || 'booked' })}
                         </div>
                     </div>
-                )
-            })}
+                );
+            })};
         </div>
     )
 }

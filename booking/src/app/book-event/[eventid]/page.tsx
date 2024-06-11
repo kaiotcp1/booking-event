@@ -15,8 +15,8 @@ interface Props {
 };
 
 const BookEventPage = async ({ params }: Props) => {
-  const event = await EventModel.findById(params.eventid);
-  const eventBookings = await BookingModel.find({event: params.eventid});
+  const event: EventType = (await EventModel.findById(params.eventid)) as any;
+  const eventBookings = await BookingModel.find({event: params.eventid, status: 'booked'});
 
   const getEventProperty = (property: string) => {
     return (

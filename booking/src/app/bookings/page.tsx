@@ -54,8 +54,9 @@ const BookingsPage = async () => {
               {getProperty({ key: 'Total Price', value: booking.totalAmount })}
               {getProperty({
                 key: "Booked on",
-                value: dayjs(booking.createdAt).format("DD/MM/YYYY hh:mm A"),
+                value: dayjs(booking.createdAt).format("DD/MM/YYYY hh:mm A")
               })}
+              {getProperty({ key: 'Status', value: booking.status || 'booked' })}
             </div>
           </div>
         )
