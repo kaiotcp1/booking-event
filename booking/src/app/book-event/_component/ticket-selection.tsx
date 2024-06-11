@@ -39,7 +39,7 @@ const TicketSelection = ({ event, eventBookings }: TicketSelectionProps) => {
         let bookedTickets = 0;
         eventBookings.forEach((booking: BookingType) => {
             if (booking.ticketType === ticketType.name) {
-                bookedTickets += booking.ticketCount;
+                bookedTickets += booking.ticketsCount;
             }
         });
 
