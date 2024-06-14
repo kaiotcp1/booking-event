@@ -16,7 +16,7 @@ interface Props {
 
 const BookEventPage = async ({ params }: Props) => {
   const event: EventType = (await EventModel.findById(params.eventid)) as any;
-  const eventBookings = await BookingModel.find({ event: params.eventid, status: 'booked' });
+  const eventBookings = await BookingModel.find({event: params.eventid, status: 'booked'});
 
   const getEventProperty = (property: string) => {
     return (
@@ -33,8 +33,6 @@ const BookEventPage = async ({ params }: Props) => {
 
   return (
     <div className='md:mx-7 m-5'>
-      <PageTitle title='Reports' />
-
       <div className='bg-gray-700 p-5 text-white flex items-center md:items-start flex-col gap-5 shadow-md'>
         <h1 className="text-7xl font-semibold text-white">{event?.name}</h1>
         <div className="flex gap-10 text-sm">
@@ -78,7 +76,7 @@ const BookEventPage = async ({ params }: Props) => {
           </div>
         </div>
         <TicketSelection event={JSON.parse(JSON.stringify(event))}
-          eventBookings={JSON.parse(JSON.stringify(eventBookings))} />
+          eventBookings={JSON.parse(JSON.stringify(eventBookings))}/>
       </div>
     </div>
   )
