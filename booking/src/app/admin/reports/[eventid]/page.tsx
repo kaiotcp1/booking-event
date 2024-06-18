@@ -46,10 +46,12 @@ const EventReportpage = async ({ params }: Props) => {
     //console.dir(totalRevenue, { depth: 2, colors: true });
 
     return (
-        <div className='h-screen md:mx-7 m-5'>
-            <PageTitle title='Reports' />
+        <div className='h-screen md:mx-7 mx-5'>
+            <div className='flex justify-between items-center bg-slate-700 shadow-md my-5'>
+                <PageTitle title='Reports' />
+            </div>
             <div className='bg-gray-700 p-5 text-white flex items-center md:items-start flex-col gap-5 shadow-md'>
-                <h1 className="text-7xl font-semibold text-white">{event?.name}</h1>
+                <h1 className="text-5xl md:text-7xl font-semibold text-white">{event?.name}</h1>
                 <div className="flex gap-10 text-sm">
                     <h1 className="text-gray-500 ">
                         <i className="ri-map-pin-line pr-3 text-white"></i>

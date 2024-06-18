@@ -60,41 +60,45 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
   };
 
   return (
-    <div className='flex flex-col gap-5'>
-      <Input label='Event name' placeholder='Enter event name'
-        {...getCommonProps('name')} />
-
-      <Input label='Organizer'
-        placeholder='Enter organizer name'
-        {...getCommonProps('organizer')} />
-
-      <Textarea placeholder='Enter description'
-        label='Description' {...getCommonProps('description')} />
-
-      <div className="flex items-end gap-5">
-        <Input
-          placeholder='Enter your guests'
-          label='Guests'
-          value={guest}
-          onChange={(e) => setGuest(e.target.value)}
-          labelPlacement='outside'
+    <div className='flex flex-col md:flex md:flex-col md:gap-5'>
+      <div className='flex flex-col gap-3'>
+        <Input label='Event name' placeholder='Enter event name'
+          {...getCommonProps('name')}
         />
-        <Button
-          onClick={onGuestAdd}
-          className='bg-gray-700 text-white'
-          title='Add'>Add</Button>
-      </div>
-      <div className="flex flex-wrap gap-5">
-        {event?.guests?.map((guest: string, index: number) => (
-          <Chip key={index}
-            onClose={() => onGuestRemove(index)}
-            className='text-black'>{guest}</Chip>
-        ))}
-      </div>
-      <div className="flex justify-center gap-5">
-        <Button className='bg-gray-200 text-black' onClick={() => { }}>Cancel</Button>
-        <Button className='bg-gray-700 text-white' onClick={() => setActiveStep(activeStep + 1)}
-          isDisabled={!event?.name || !event?.organizer || !event?.description}>Next</Button>
+
+        <Input label='Organizer'
+          placeholder='Enter organizer name'
+          {...getCommonProps('organizer')} />
+
+        <Textarea placeholder='Enter description'
+          label='Description' {...getCommonProps('description')} />
+
+        <div className="flex items-end gap-5">
+          <Input
+            placeholder='Enter your guests'
+            label='Guests'
+            value={guest}
+            onChange={(e) => setGuest(e.target.value)}
+            labelPlacement='outside'
+          />
+          <Button
+            onClick={onGuestAdd}
+            className=' bg-slate-500 text-white'
+            title='Add'>Add</Button>
+        </div>
+
+        <div className="flex flex-wrap gap-5">
+          {event?.guests?.map((guest: string, index: number) => (
+            <Chip key={index}
+              onClose={() => onGuestRemove(index)}
+              className='text-black'>{guest}</Chip>
+          ))}
+        </div>
+        <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
+          <Button className='bg-gray-400 text-white  md:text-black' onClick={() => { }}>Cancel</Button>
+          <Button className='bg-slate-500 text-white shadow-md' onClick={() => setActiveStep(activeStep + 1)}
+            isDisabled={!event?.name || !event?.organizer || !event?.description}>Next</Button>
+        </div>
       </div>
     </div>
   )

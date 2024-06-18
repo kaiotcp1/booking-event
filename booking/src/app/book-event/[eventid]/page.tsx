@@ -1,8 +1,8 @@
-import PageTitle from '@/components/PageTitle'
+import PageTitle from '@/components/PageTitle';
 import { connectDB } from '@/config/dbConfig';
 import { EventType } from '@/interfaces/events';
 import EventModel from '@/models/eventmodel';
-import React from 'react'
+import React from 'react';
 import TicketSelection from '../_component/ticket-selection';
 import BookingModel from '@/models/bookingmodel';
 
@@ -16,7 +16,7 @@ interface Props {
 
 const BookEventPage = async ({ params }: Props) => {
   const event: EventType = (await EventModel.findById(params.eventid)) as any;
-  const eventBookings = await BookingModel.find({event: params.eventid, status: 'booked'});
+  const eventBookings = await BookingModel.find({ event: params.eventid, status: 'booked' });
 
   const getEventProperty = (property: string) => {
     return (
@@ -32,9 +32,9 @@ const BookEventPage = async ({ params }: Props) => {
   }
 
   return (
-    <div className='md:mx-7 m-5'>
-      <div className='bg-gray-700 p-5 text-white flex items-center md:items-start flex-col gap-5 shadow-md'>
-        <h1 className="text-7xl font-semibold text-white">{event?.name}</h1>
+    <div className='md:mx-7 mt-5 mx-5'>
+      <div className='bg-gray-700 p-5 text-white flex items-start flex-col gap-5 shadow-md'>
+        <h1 className="md:text-7xl text-2xl font-semibold text-white">{event?.name}</h1>
         <div className="flex gap-10 text-sm">
           <h1 className="text-gray-500 ">
             <i className="ri-map-pin-line pr-3 text-white"></i>
@@ -47,16 +47,29 @@ const BookEventPage = async ({ params }: Props) => {
         </div>
       </div>
       <div className="py-5">
-        <div className="flex gap-5 my-5 flex-wrap overflow-x-auto md:justify-between ">
-          {event?.images.map((image) => (
-            <img key={image.toString()} src={image}
-              alt='Picture of the event'
-              height={180}
-              width={400}
-              className="border rounded-l-sm shadow-lg"
-            />
-          ))}
-        </div>
+        {event.images.length === 2 ? (
+          <div className='grid gap-5 md:grid-cols-2'>
+            {event?.images.map((image) => (
+              <div key={image.toString()} className="relative h-96 w-full">
+                <img src={image}
+                  alt='Picture of the event'
+                  className="absolute inset-0 w-96 h-96 object-cover border rounded-sm shadow-lg"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex gap-5 my-5 flex-wrap overflow-x-auto md:grid md:grid-cols-6">
+            {event?.images.map((image) => (
+              <div key={image.toString()} className="relative h-64 w-full md:w-48">
+                <img src={image}
+                  alt='Picture of the event'
+                  className="absolute inset-0 w-full h-full object-cover border rounded-sm shadow-lg"
+                />
+              </div>
+            ))}
+          </div>
+        )}
         <p className="text-gray-100 w-full text-sm md:mt-10 mt-5">
           {event?.description}
         </p>
@@ -76,10 +89,10 @@ const BookEventPage = async ({ params }: Props) => {
           </div>
         </div>
         <TicketSelection event={JSON.parse(JSON.stringify(event))}
-          eventBookings={JSON.parse(JSON.stringify(eventBookings))}/>
+          eventBookings={JSON.parse(JSON.stringify(eventBookings))} />
       </div>
     </div>
   )
 }
 
-export default BookEventPage
+export default BookEventPage;

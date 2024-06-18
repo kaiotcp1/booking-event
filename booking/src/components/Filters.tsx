@@ -21,7 +21,7 @@ const Filters = () => {
     }, [filters.date]);
 
     return (
-        <div className='bg-gray-700 p-5 flex flex-col md:flex-row gap-2 items-end w-full'>
+        <div className='bg-gray-700 p-5 flex flex-col md:flex-row gap-2 md:items-end items-start w-full'>
             <div className="w-full">
                 <h1 className="text-sm text-gray-400">
                     Search for an event by name

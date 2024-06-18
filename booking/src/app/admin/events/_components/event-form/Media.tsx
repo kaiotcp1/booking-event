@@ -43,14 +43,16 @@ const Media = ({ newlySelectedImages,
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex justify-center items-center'>
-        <Button onClick={() => uploadFilesRef.current?.click()}>
+      <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
+      <Button className='flex items-center shadow-md bg-slate-500 text-white'
+         onClick={() => uploadFilesRef.current?.click()}>
           <input type='file' ref={uploadFilesRef}
             onChange={onFileSelect} hidden />
-          Upload new image</Button>
+          Upload new image
+        </Button>
       </div>
-      <div className="flex gap-5">
-      {alreadyUploadedImages?.map((image: any, index: number) => (
+      <div className="grid grid-cols-2 gap-5 md:flex md:flex-row">
+        {alreadyUploadedImages?.map((image: any, index: number) => (
           <div key={index} className="flex flex-col gap-5 border">
             <img src={image} alt='newly selected'
               className='w-20 h-20 object-cover m-5 shadow-2xl' />
@@ -60,17 +62,17 @@ const Media = ({ newlySelectedImages,
         ))}
 
         {newlySelectedImages?.map((image: any, index: number) => (
-          <div key={index} className="flex flex-col gap-5 border">
+          <div key={index} className="flex flex-col items-center gap-5 shadow-md bg-slate-600 md:bg-white  md:border">
             <img src={image.url} alt='newly selected'
-              className='w-20 h-20 object-cover m-5 shadow-2xl' />
-            <h1 className='text-center cursor-pointer text-sm underline'
+              className='w-28 h-28 object-cover m-5 shadow-2xl' />
+            <h1 className='text-center cursor-pointer text-sm  text-white md:text-black my-2 bg-gray-700 md:bg-gray-300 p-2 w-28 md:w-20 shadow-lg '
               onClick={() => onNewUploadedRemove(index)}>Remove</h1>
           </div>
         ))}
       </div>
-      <div className="flex justify-center gap-5">
-        <Button className='bg-gray-200 text-black' onClick={() => setActiveStep(activeStep - 1)}>Back</Button>
-        <Button className='bg-gray-700 text-white' onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
+      <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
+        <Button className='shadow-md bg-gray-400 text-white  md:text-black' onClick={() => setActiveStep(activeStep - 1)}>Back</Button>
+        <Button className='shadow-md bg-slate-500 text-white' onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
       </div>
     </div>
   )

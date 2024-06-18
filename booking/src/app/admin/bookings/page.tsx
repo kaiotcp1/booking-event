@@ -25,8 +25,10 @@ const BookingsPage = async () => {
     }
 
     return (
-        <div className='h-screen flex flex-col gap-5 my-5 mx-8'>
-            <PageTitle title='All Bookings' />
+        <div className='flex flex-col mx-7 gap-5'>
+            <div className='flex justify-between items-center bg-slate-700 shadow-md my-5'>
+                <PageTitle title='All Bookings' />
+            </div>
             {serializedBookings.map((booking) => {
                 return (
                     <div key={booking._id} className='bg-gray-700 shadow-md'>

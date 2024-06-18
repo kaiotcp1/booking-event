@@ -28,8 +28,8 @@ const EventsTable = ({ events }: { events: EventType[] }) => {
     };
 
     return (
-        <div className='bg-black'>
-            <Table className='bg-slate-700' aria-label="Example static collection table">
+        <div className='overflow-x-auto bg-slate-700 shadow-lg'>
+                <Table className='min-w-full bg-slate-700' aria-label="Events Table">
                 <TableHeader className='bg-slate-800'>
                     {columns.map((column: any, index: number) => {
                         return (

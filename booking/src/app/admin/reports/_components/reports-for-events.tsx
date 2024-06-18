@@ -4,42 +4,46 @@ import React from 'react'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 
-
 const columns = ['Name', 'Organizer', 'Date', 'Time', 'Location', 'Actions'];
 
 const EventsTableForReports = ({ events }: { events: EventType[] }) => {
     const router = useRouter();
 
     return (
-        <div className='bg-black'>
-            <Table className='bg-slate-700' aria-label="Example static collection table">
-                <TableHeader className='bg-slate-800'>
-                    {columns.map((column: any, index: number) => {
-                        return (
-                            <TableColumn key={index} className='bg-gray-700 shadow-md text-white p-3 text-md'>{column}</TableColumn>
-                        )
-                    })}
-                </TableHeader>
-                <TableBody className='bg-slate-300 shadow-lg'>
-                    {events.map((event: any, index: number) => {
-                        return (
-                            <TableRow className='text-center text-white shadow-md' key={event._id}>
-                                <TableCell>{event.name}</TableCell>
-                                <TableCell>{event.organizer}</TableCell>
-                                <TableCell>{event.date}</TableCell>
-                                <TableCell>{event.time}</TableCell>
-                                <TableCell>{event.location}</TableCell>
-                                <TableCell>
-                                    <div className="flex gap-5 justify-center">
-                                        <Button onClick={() => { router.push(`/admin/reports/${event._id}`) }}>View Report</Button>
-                                    </div>
-                                </TableCell>
+        <div className=''>
+            <div className='overflow-x-auto bg-slate-700 shadow-lg'>
+                <Table className='min-w-full bg-slate-700 shadow-md' aria-label="Events Table">
+                    <TableHeader className='bg-slate-800 shadow-md'>
+                        {columns.map((column: any, index: number) => {
+                            const isHiddenOnMobile = column !== 'Actions' && index > 1;
+                            return (
+                                <TableColumn key={index} className={`bg-gray-700 shadow-md text-white p-3 text-md ${isHiddenOnMobile ? 'hidden md:table-cell shadow-md' : ''}`}>
+                                    {column}
+                                </TableColumn>
+                            )
+                        })}
+                    </TableHeader>
+                    <TableBody className='bg-slate-300 shadow-md'>
+                        {events.map((event: any, index: number) => {
+                            return (
+                                <TableRow key={event._id} className='text-center text-white bg-gray-900 shadow-md'>
+                                    <TableCell className='p-3 bg-gray-700'>{event.name}</TableCell>
+                                    <TableCell className='p-3 bg-gray-700'>{event.organizer}</TableCell>
+                                    <TableCell className='p-3 bg-gray-700 hidden md:table-cell'>{event.date}</TableCell>
+                                    <TableCell className='p-3 bg-gray-700 hidden md:table-cell'>{event.time}</TableCell>
+                                    <TableCell className='p-3 bg-gray-700 hidden md:table-cell'>{event.location}</TableCell>
+                                    <TableCell className='p-3 bg-gray-700'>
+                                        <div className="flex gap-2 justify-center">
+                                            <Button onClick={() => { router.push(`/admin/reports/${event._id}`) }}>View Report</Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            )
+                        })}
+                    </TableBody>
 
-                            </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
+                </Table>
+            </div>
         </div>
     )
 }

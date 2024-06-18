@@ -52,9 +52,9 @@ const LocationAndDate = ({ event, setEvent, activeStep, setActiveStep }: EventFo
           type='time'
         />
       </div>
-      <div className="flex justify-center gap-5">
-        <Button className='bg-gray-200 text-black' onClick={() => setActiveStep(activeStep - 1)}>Back</Button>
-        <Button className='bg-gray-700 text-white' onClick={() => setActiveStep(activeStep + 1)}
+      <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
+      <Button className='shadow-md bg-gray-400 text-white  md:text-black' onClick={() => setActiveStep(activeStep - 1)}>Back</Button>
+        <Button className='shadow-md bg-slate-500 text-white' onClick={() => setActiveStep(activeStep + 1)}
           isDisabled={!event?.location || !event?.date || !event?.time}>Next</Button>
       </div>
     </div>

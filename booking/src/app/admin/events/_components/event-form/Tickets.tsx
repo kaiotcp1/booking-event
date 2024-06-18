@@ -68,8 +68,8 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent, loading }: EventF
 
       <Button className='mt-10' onClick={onAddTicketType}>Add Ticket Type</Button>
 
-      <div className="flex justify-center gap-5">
-        <Button className='bg-gray-200 text-black' onClick={() => setActiveStep(activeStep - 1)}>back</Button>
+      <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
+        <Button className='shadow-md bg-gray-400 text-white md:text-black' onClick={() => setActiveStep(activeStep - 1)}>back</Button>
         <Button spinner={
           <svg
             className="animate-spin h-5 w-5 text-current"
@@ -91,7 +91,7 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent, loading }: EventF
               fill="currentColor"
             />
           </svg>
-        } className='bg-gray-700 text-white' type='submit'
+        } className='shadow-md bg-slate-500 text-white' type='submit'
           isDisabled={event?.ticketTypes?.length === 0}
           isLoading={loading}>Submit</Button>
       </div>

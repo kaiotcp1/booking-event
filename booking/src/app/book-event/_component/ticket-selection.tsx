@@ -80,11 +80,11 @@ const TicketSelection = ({ event, eventBookings }: TicketSelectionProps) => {
         <div className='mt-5'>
             <div className=''>
                 <h1 className='text-xl font-semibold text-white'>Select Ticket Type</h1>
-                <div className="grid grid-cols-4 gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                     {event.ticketTypes.map((ticketType) => (
                         <div key={ticketType.name}
                             onClick={() => setSelectedTicketType(ticketType.name)}
-                            className={`bg-gray-700 p-2 text-lg shadow-md hover:bg-gray-600 hover:shadow-2xl duration-300 cursor-pointer
+                            className={` bg-gray-700 p-2 text-lg shadow-md hover:bg-gray-600 hover:shadow-2xl duration-300 cursor-pointer
                         ${selectedTicketType === ticketType.name && ` hover:bg-gray-600 hove border border-gray-300 rounded-sm`}`}>
                             <h1 className="text-gray-400 font-semibold"> {ticketType.name}</h1>
                             <h1 className='flex justify-between text-gray-500 text-sm'>${ticketType.price} <span>{limits[ticketType.name]} Tickets Left</span></h1>
