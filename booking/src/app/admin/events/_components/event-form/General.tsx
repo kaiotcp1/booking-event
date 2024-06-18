@@ -60,7 +60,7 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
   };
 
   return (
-      <div className='flex flex-col gap-5'>
+      <div className='flex flex-col'>
         <Input label='Event name' placeholder='Enter event name'
           {...getCommonProps('name')}
         />
