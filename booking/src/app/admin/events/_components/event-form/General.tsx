@@ -60,8 +60,7 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
   };
 
   return (
-    <div className='flex flex-col md:flex md:flex-col md:gap-5'>
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-5'>
         <Input label='Event name' placeholder='Enter event name'
           {...getCommonProps('name')}
         />
@@ -100,7 +99,6 @@ const General = ({ event, activeStep, setActiveStep, setEvent }: EventFormStepPr
             isDisabled={!event?.name || !event?.organizer || !event?.description}>Next</Button>
         </div>
       </div>
-    </div>
   )
 }
 

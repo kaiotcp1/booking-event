@@ -44,10 +44,8 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent, loading }: EventF
 
   return (
     <div>
-
-
       {event.ticketTypes && event.ticketTypes.length > 0 && (
-        <div>
+        <>
           <div className='grid grid-cols-4 bg-gray-300 shadow-lg font-semibold rounded justify-between p-2 gap-5'>
             {['Name', 'Price', 'Limit'].map((item: any, index: number) => (
               <h1 key={index}>{item}</h1>
@@ -63,7 +61,7 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent, loading }: EventF
               </Button>
             </div>
           ))}
-        </div>
+        </>
       )}
 
       <Button className='mt-10' onClick={onAddTicketType}>Add Ticket Type</Button>

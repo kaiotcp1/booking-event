@@ -20,7 +20,7 @@ const PaymentModal = ({ showPaymentModal, setShowPaymentModal, event, ticketType
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -34,8 +34,8 @@ const PaymentModal = ({ showPaymentModal, setShowPaymentModal, event, ticketType
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${process.env.NEXT_PUBLIC_DOMAIN}/bookings`
-          ||'https://booking-event-kaio.vercel.app',
+          return_url:
+            'https://booking-event-kaio.vercel.app/?name=&date=',
         },
         redirect: 'if_required',
       });

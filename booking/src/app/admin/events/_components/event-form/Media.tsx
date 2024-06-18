@@ -43,14 +43,12 @@ const Media = ({ newlySelectedImages,
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
       <Button className='flex items-center shadow-md bg-slate-500 text-white'
          onClick={() => uploadFilesRef.current?.click()}>
           <input type='file' ref={uploadFilesRef}
             onChange={onFileSelect} hidden />
           Upload new image
         </Button>
-      </div>
       <div className="grid grid-cols-2 gap-5 md:flex md:flex-row">
         {alreadyUploadedImages?.map((image: any, index: number) => (
           <div key={index} className="flex flex-col gap-5 border">
