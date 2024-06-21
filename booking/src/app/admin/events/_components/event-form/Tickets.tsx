@@ -67,7 +67,7 @@ const Tickets = ({ event, activeStep, setActiveStep, setEvent, loading }: EventF
       <Button className='mt-10' onClick={onAddTicketType}>Add Ticket Type</Button>
 
       <div className="flex flex-col justify-between mt-1 md:mt-3 gap-2 md:flex md:justify-center md:gap-5">
-        <Button className='shadow-md bg-gray-400 text-white md:text-black' onClick={() => setActiveStep(activeStep - 1)}>back</Button>
+        <Button className='shadow-md bg-gray-400 text-white md:text-black' onClick={() => setActiveStep(activeStep - 1)}>Back</Button>
         <Button spinner={
           <svg
             className="animate-spin h-5 w-5 text-current"
