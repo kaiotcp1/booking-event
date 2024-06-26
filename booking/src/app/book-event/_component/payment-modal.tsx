@@ -71,7 +71,7 @@ const PaymentModal = ({ showPaymentModal, setShowPaymentModal, event, ticketType
       size='lg'
       className='flex items-center justify-center bg-opacity-80 gap-5 pb-2'
     >
-      <ModalContent className='bg-white rounded-lg shadow-lg'>
+      <ModalContent className='bg-white rounded-lg shadow-lg max-h-screen overflow-y-auto'>
         <h1 className='text-2xl font-semibold gap-5'>
           Payment
         </h1>
