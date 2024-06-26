@@ -53,7 +53,6 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
     const getUserData = async () => {
         try {
             const response = await axios.get('/api/current-user');
-            console.log('response: ', response.data);
             if (response.data.user.isAdmin) {
                 setMenusToShow(menusForAdmin);
                 setIsAdmin(true);
@@ -61,7 +60,6 @@ const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
                 setMenusToShow(menusForUser);
             }
         } catch (error: any) {
-            console.log('error:', error);
             toast.error(error.message);
         }
     };

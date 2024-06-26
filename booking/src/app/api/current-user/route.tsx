@@ -7,13 +7,12 @@ connectDB();
 
 export async function GET(request: NextRequest) {
     try {
-        const {userId} = auth();
-        if(!userId) throw new Error('unauthorized request');
+        const { userId } = auth();
+        if (!userId) throw new Error('unauthorized request');
 
-        const userInMongoDb = await UserModel.findOne({clerkUserId: userId});
-        //console.log('UserInMongoDb Log: ' + userInMongoDb);
-        return NextResponse.json({user: userInMongoDb}, {status: 200});
+        const userInMongoDb = await UserModel.findOne({ clerkUserId: userId });
+        return NextResponse.json({ user: userInMongoDb }, { status: 200 });
     } catch (error: any) {
-        return NextResponse.json({message: error.message}, {status: 500});
+        return NextResponse.json({ message: error.message }, { status: 500 });
     };
 };

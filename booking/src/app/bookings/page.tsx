@@ -13,8 +13,6 @@ const BookingsPage = async () => {
   const bookedEvents: BookingType[] = (await BookingModel.find({ user: mongoUserId }).populate('event').exec()) as any;
   const serializedBookings = JSON.parse(JSON.stringify(bookedEvents)) as BookingType[];
 
-  //console.log(bookedEvents)
-
   const getProperty = ({ key, value }: { key: string, value: any }) => {
     return (
       <div>
